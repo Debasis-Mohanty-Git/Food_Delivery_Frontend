@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Divider, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
-import MenuCart from './Restaurant/MenuCart';
+import MenuCart from './MenuCart';
 
 const categories = [
   "Pizza",

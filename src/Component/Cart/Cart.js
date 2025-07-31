@@ -1,0 +1,140 @@
+import { Box, Button, Card, Divider, Modal } from '@mui/material'
+import React from 'react'
+import CartItem from './CartItem'
+import AddressCard from './AddressCard'
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  outline:'none',
+  boxShadow: 24,
+  p: 4,
+};
+
+
+const items = [1, 1, 1]
+const Cart = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpenAddressModal = () => setOpen(true);
+
+  const createOrderUsingSelecteAdddress = () => {
+
+  }
+
+  return (
+    <>
+      <main className='lg:flex justify-between'>
+        <section className='lg:w-[30%] space-y-3 lg:min-h-screen pt-8'>
+          {items.map((item) => <CartItem />)}
+          <Divider />
+
+          <div className='billdetails px-5 text-sm'>
+            <p className='py-5 text-left font-extrabold'>Bill Details</p>
+
+            <div className='space-y-3'>
+              <div className='flex justify-between text-gray-400'>
+                <p>Item Total</p>
+                <p>Price</p>
+              </div>
+
+              <div className='flex justify-between text-gray-400'>
+                <p>Deliver Fee</p>
+                <p>Price</p>
+              </div>
+
+              <div className='flex justify-between text-gray-400'>
+                <p>GST & Restaurant Charges</p>
+                <p>Price</p>
+              </div>
+
+              <Divider />
+            </div>
+
+            <div className='flex justify-between text-gray-400'>
+              <p>Total Price</p>
+              <p>Price</p>
+            </div>
+          </div>
+        </section>
+
+        <Divider orientation='vertical' flexItem />
+        <section className='w-[80%] mx-auto px-5 pb-10 lg:pb-0 mt-10'>
+          <div className='w-full max-w-5xl mx-auto'>
+            <h1 className='text-center font-semibold text2 mb-10 text-3xl'>
+              Choose Delivery Address
+            </h1>
+
+            <div className='flex gap-5 flex-wrap justify-center'>
+              {[1, 1, 1, 1, 1].map((item, index) => (
+                <AddressCard
+                  key={index}
+                  handleSelectAddress={createOrderUsingSelecteAdddress}
+                  item={item}
+                  showButton={true}
+                />
+              ))}
+
+              {/* New Address */}
+              <Card className='flex flex-col gap-5 w-64 p-6 bg-[#1e1e1e] text-gray-400 shadow-xl rounded-2xl'>
+                <div className='flex items-center gap-3'>
+                  <div className='p-2 rounded-full bg-gray-700'>
+                    <AddLocationAltIcon className='text-white' />
+                  </div>
+                  <h1 className='font-semibold text-lg text-white whitespace-nowrap'>
+                    Add New Address
+                  </h1>
+
+                </div>
+
+                <p className='text-sm text-gray-500'>
+                  You can add a new delivery address to your profile.
+                </p>
+
+                <Button
+                  variant='outlined'
+                  fullWidth
+                  onClick={handleOpenAddressModal}
+                  sx={{
+                    borderColor: '#ffffff55',
+                    color: '#fff',
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: '8px',
+                    ':hover': {
+                      borderColor: '#ffffffaa',
+                      backgroundColor: '#2c2c2c',
+                    },
+                  }}
+                >
+                  Add
+                </Button>
+              </Card>
+
+
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          
+        </Box>
+      </Modal>
+    </>
+  )
+}
+
+export default Cart

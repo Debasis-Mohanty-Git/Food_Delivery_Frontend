@@ -15,6 +15,11 @@ const ingredients = [
 ]
 
 const MenuCart = () => {
+  
+    const handleChechBoxChange=()=>{
+        console.log("value");
+    }
+
     return (
         <div>
             <Accordion>
@@ -49,7 +54,7 @@ const MenuCart = () => {
                                     <div>
                                         <p>{item.category}</p>
                                         <FormGroup>
-                                            {item.ingredient.map((item) => <FormControlLabel control={<Checkbox />} label={item} />
+                                            {item.ingredient.map((item) => <FormControlLabel control={<Checkbox onChange={()=>handleChechBoxChange(item)}/>} label={item} />
                                             )}
                                         </FormGroup>
                                     </div>
