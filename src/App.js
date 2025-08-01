@@ -6,16 +6,20 @@ import { darkTheme } from './Theme/DarkTheme';
 import { CssBaseline } from '@mui/material';
 import RestaurantDetails from './Component/Restaurant/RestaurantDetails';
 import Cart from './Component/Cart/Cart';
+import Profile from './Component/Profile/Profile';
+import CustomerRouter from './Component/Routers/CustomerRouter';
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Home /> */}
       {/* <RestaurantDetails /> */}
-      <Cart />
+      {/* <Cart /> */}
+      {/* <Profile /> */}
+      <CustomerRouter />
       </ThemeProvider>
     </div>
   );

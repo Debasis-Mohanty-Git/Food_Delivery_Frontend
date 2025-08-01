@@ -1,8 +1,10 @@
-import { Box, Button, Card, Divider, Modal } from '@mui/material'
+import { Box, Button, Card, Divider, Grid, Modal, TextField } from '@mui/material'
 import React from 'react'
 import CartItem from './CartItem'
 import AddressCard from './AddressCard'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+
 
 const style = {
   position: 'absolute',
@@ -11,10 +13,17 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  outline:'none',
+  outline: 'none',
   boxShadow: 24,
   p: 4,
 };
+
+const initialValues = {
+  streetAddress: "",
+  state: "",
+  pincode: '',
+  city: ""
+}
 
 
 const items = [1, 1, 1]
@@ -25,6 +34,10 @@ const Cart = () => {
 
   const createOrderUsingSelecteAdddress = () => {
 
+  }
+
+  const handleSubmit = (value) => {
+    console.log("Form value",value);
   }
 
   return (
@@ -130,9 +143,76 @@ const Cart = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            {({ handleSubmit }) => (
+              <Form
+                onSubmit={handleSubmit}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                  padding: '15px',
+                }}
+              >
+                
+                <Field
+                  as={TextField}
+                  name="streetAddress"
+                  label="Street Address"
+                  fullWidth
+                  variant="outlined"
+                />
+
+                
+                <Field
+                  as={TextField}
+                  name="state"
+                  label="State"
+                  fullWidth
+                  variant="outlined"
+                />
+
+                
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <Field
+                    as={TextField}
+                    name="city"
+                    label="City"
+                    fullWidth
+                    variant="outlined"
+                  />
+                  <Field
+                    as={TextField}
+                    name="pincode"
+                    label="Pincode"
+                    fullWidth
+                    variant="outlined"
+                  />
+                </div>
+
+               
+                <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                  <button
+                    type="submit"
+                    style={{
+                      padding: '10px 30px',
+                      backgroundColor: '#1976d2',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '4px',
+                      fontSize: '16px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Deliver Here
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </Box>
       </Modal>
+
     </>
   )
 }
