@@ -1,10 +1,16 @@
 import React from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../State/Authentication/Action';
+import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
+const dispatch=useDispatch();
+const navigate=useNavigate();
 
   const handleLogout = () => {
-    console.log("this is Logout button in userProfile")
+    dispatch(logoutUser());
+    navigate("/")
   }
   return (
     <div className='min-h-[80vh] flex flex-col justify-center items-center text-center'>

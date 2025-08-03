@@ -5,24 +5,46 @@ import CarouselItem from './CarouselItem'
 
 const MultiItemCarousel = () => {
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay:true,
-        autoplaySpeed:2000,
-        arrows:false
-    };
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1500,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        }
+      }
+    ]
+  };
 
-    return (
-        <div>
-            <Slider {...settings}>
-                {topMeal.map((item) => (<CarouselItem image={item.image} title={item.title} />))}
-            </Slider>
-        </div>
-    )
+  return (
+    <div className="px-2">
+      <Slider {...settings}>
+        {topMeal.map((item, index) => (
+          <CarouselItem key={index} image={item.image} title={item.title} />
+        ))}
+      </Slider>
+    </div>
+  )
 }
 
 export default MultiItemCarousel
