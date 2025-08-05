@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Divider, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import MenuCart from './MenuCart';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurantById, getRestaurantCategory } from '../../State/Restaurant/Action';
 
 const categories = [
   "Pizza",
@@ -19,17 +22,28 @@ const foodTypes = [
   { label: "Seasonal", value: "seasonal" },
 ]
 
-const menu=[1,1,1,1,1];
+const menu = [1, 1, 1, 1, 1];
 
 const RestaurantDetails = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { auth,restaurant } = useSelector(store => store)
 
+  const { id, city } = useParams();
   const [foodType, setFoodType] = useState("all");
 
   const handleFilter = (e) => {
     console.log(e.target.value, e.target.name)
   }
 
+  console.log("Restaurant",restaurant);
+  useEffect(() => {
+    dispatch(getRestaurantById({ jwt, restaurantId:id }));
+    dispatch(getRestaurantCategory({jwt,restaurantId:id}));
+  }, [])
   return (
+
     <div className="px-5 lg:px-20">
       <section>
         <h3 className="text-gray-400 py-1 mt-10 text-left">Home/Country/indian Restaurant Name/3</h3>
@@ -38,7 +52,7 @@ const RestaurantDetails = () => {
           <div className="col-span-1 lg:col-span-2">
             <img
               className="w-full h-[40vh] object-cover"
-              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3Dhttps://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D"
+              src={restaurant.restaurant?.images[0]}
               alt=""
             />
           </div>
@@ -46,7 +60,7 @@ const RestaurantDetails = () => {
           <div>
             <img
               className="w-full h-[40vh] object-cover"
-              src="https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D"
+              src="https://cdn.pixabay.com/photo/2017/02/12/16/38/scotch-2060499_1280.jpg"
               alt=""
             />
           </div>
@@ -54,7 +68,7 @@ const RestaurantDetails = () => {
           <div>
             <img
               className="w-full h-[40vh] object-cover"
-              src="https://cloudfront-eu-central-1.images.arcpublishing.com/williamreed/JCP6P4IVAVOC3GLMJEZ3WQBFTM.png"
+              src={restaurant.restaurant?.images[2]}
               alt=""
             />
           </div>
@@ -62,20 +76,21 @@ const RestaurantDetails = () => {
 
         <div className='px-5 lg:px-20 py-8 bg-gray-400 shadow-md rounded-xl'>
           <section className='space-y-4'>
-            <h1 className='text-4xl font-bold text-gray-800'>Restaurant Name</h1>
+            <h1 className='text-4xl font-bold text-gray-800'>{restaurant.restaurant?.name}</h1>
 
             <p className='text-gray-600 text-lg leading-relaxed'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, aspernatur!
+              {restaurant.restaurant?.description}
             </p>
 
             <div className='flex items-center text-gray-500 text-base'>
               <LocationPinIcon className='text-green-500' />
-              <span className='ml-2'>123 Food Street, Food City</span>
+              <span className='ml-2'>{restaurant.restaurant?.address?.city}</span>,
+              <span className='ml-2'>{restaurant.restaurant?.address?.streetAddress}</span>
             </div>
 
             <div className='flex items-center text-gray-500 text-base'>
               <CalendarMonthIcon className='text-blue-500' />
-              <span className='ml-2'>July 30, 2025</span>
+              <span className='ml-2'>{restaurant.restaurant?.opeingHours}</span>
             </div>
           </section>
         </div>
@@ -125,7 +140,7 @@ const RestaurantDetails = () => {
         </div>
 
         <div className='space-y-5 lg:w-[80%] lg:pl-10 text-left'>
-          {menu.map(()=><MenuCart />)}
+          {menu.map(() => <MenuCart />)}
         </div>
 
       </section>

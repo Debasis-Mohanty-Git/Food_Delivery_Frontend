@@ -261,7 +261,7 @@ export const getRestaurantCategory = ({ restaurantId, jwt }) => async (dispatch)
         const response = await api.get(`/api/category/restaurant/${restaurantId}`, {
             headers: {
                 Authorization: `Bearer ${jwt}`
-            }
+            }   
         });
 
         dispatch({ type: GET_RESTAURANT_CATEGORY_SUCCESS, payload: response.data });
@@ -269,7 +269,7 @@ export const getRestaurantCategory = ({ restaurantId, jwt }) => async (dispatch)
 
     } catch (error) {
         dispatch({ type: GET_RESTAURANT_CATEGORY_FAILURE, payload: error });
-        console.log("Error", error);
+        console.log("catch error", error);
     }
 
 }

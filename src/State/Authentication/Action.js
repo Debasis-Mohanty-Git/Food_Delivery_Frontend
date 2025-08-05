@@ -1,5 +1,5 @@
 
-import { ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType"
+import { ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType"
 import { api, API_URL } from "../../Component/Config/apiConfig"
 import { useNavigate } from "react-router-dom"
 
@@ -86,18 +86,18 @@ export const getUser = (jwt) => async (dispatch) => {
 };
 
 
-export const addTofavorite = (jwt, restaurantId) => async (dispatch) => {
+export const addToFavorite = ({jwt, restaurantId}) => async (dispatch) => {
 
   dispatch({ type: ADD_TO_FAVORITE_REQUEST });
   try {
-    const { data } = await api.put(`${API_URL}/api/restaurant/add-favorites/${restaurantId}`, {}, {
+    const { data } = await api.put(`/api/restaurant/add-favorites/${restaurantId}`, {}, {
       headers:
       {
         Authorization: `Bearer ${jwt}`
       }
     });
 
-    dispatch({ type: "ADD_TO_FAVORITE_SUCCESS", payload: data });
+    dispatch({ type: ADD_TO_FAVORITE_SUCCESS, payload: data });
     console.log("Added to favorites", data);
 
   } catch (error) {
