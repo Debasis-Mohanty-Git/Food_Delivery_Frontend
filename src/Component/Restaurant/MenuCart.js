@@ -1,24 +1,38 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Checkbox, FormControlLabel, FormGroup, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Category } from '@mui/icons-material';
+import { categorizeIngredients } from '../../Ingredients.js/categorizedIngredients';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../State/Cart/Action';
 
-const ingredients = [
-    {
-        category: "Nuts & Seeds",
-        ingredient: ["Cashews"]
-    },
-    {
-        category: "Protein",
-        ingredient: ["Mutton", "Bacon strips"]
-    },
-]
-
-const MenuCart = () => {
-
-    const handleChechBoxChange = () => {
-        console.log("value");
+const MenuCart = ({ item }) => {
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const dispatch=useDispatch();
+    const handleChekhBoxChange = (itemName) => {
+        console.log("value", itemName);
+        if (selectedIngredients.includes(itemName)) {
+            setSelectedIngredients(selectedIngredients.filter((item) => item !== itemName));
+        }
+        else {
+            setSelectedIngredients([...selectedIngredients, itemName]);
+        }
     }
+
+    const handleAddItemToCart = (e) => {
+        e.preventDefault();
+        const reqData = {
+            jwt: localStorage.getItem("jwt"),
+            cartItem: {
+                foodId: item.id,
+                quantity: 1,
+                ingredients: selectedIngredients,
+            },
+        };
+        dispatch(addItemToCart(reqData));
+        console.log("req data", reqData)
+    };
+    
 
     return (
         <div>
@@ -32,13 +46,13 @@ const MenuCart = () => {
                     <div className='lg:flex items-center justify-between'>
                         <div className='lg:flex items-center lg:gap-5'>
                             <img className='w-[7rem] h-[7rem] object-cover'
-                                src="https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg"
+                                src={item.images[0]}
                                 alt="" />
 
                             <div className='space-y-1 lg:space-y-5 lg:max-w-2xl'>
-                                <p className='font-semibold text-xl'>Name</p>
-                                <p>₹ Price</p>
-                                <p className='text-gray-400'>Description</p>
+                                <p className='font-semibold text-xl'>{item.name}</p>
+                                <p>₹ {item.price}</p>
+                                <p className='text-gray-400'>{item.description}</p>
 
                             </div>
                         </div>
@@ -47,18 +61,19 @@ const MenuCart = () => {
 
                 </AccordionSummary>
                 <AccordionDetails>
-                    <form >
+                    <form onSubmit={handleAddItemToCart}>
                         <div className='flex gap-5 flex-wrap'>
                             {
-                                ingredients.map((item) =>
+                                Object.keys(categorizeIngredients(item.ingredientsItems)).map((category) => (
                                     <div>
                                         <p>{item.category}</p>
                                         <FormGroup>
-                                            {item.ingredient.map((item) => <FormControlLabel control={<Checkbox onChange={() => handleChechBoxChange(item)} />} label={item} />
+                                            {categorizeIngredients(item.ingredientsItems)[category].map((item) =>
+                                                <FormControlLabel key={item.id} control={<Checkbox onChange={() => handleChekhBoxChange(item.name)} />} label={item.name} />
                                             )}
                                         </FormGroup>
                                     </div>
-                                )
+                                ))
                             }
                         </div>
                         <div className='pt-4'>

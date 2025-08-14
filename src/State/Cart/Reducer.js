@@ -34,22 +34,42 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                cartItems: [action.payload, ...state.cartItems],
+                cartItems: [action.payload, ...(state.cartItems || [])],
+                cart: {
+                    ...state.cart,
+                    items: [action.payload, ...(state.cart?.items || [])],
+                    restaurant: state.cart?.restaurant || action.payload.restaurant // keep restaurant
+                }
             };
 
         case UPDATE_CART_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                cartItems: state.cartItems.map((item) => item.id === action.payload.id ? action.payload : item),
+                cartItems: state.cartItems?.map((item) =>
+                    item.id === action.payload.id ? action.payload : item
+                ),
+                cart: {
+                    ...state.cart,
+                    items: state.cart?.items?.map((item) =>
+                        item.id === action.payload.id ? action.payload : item
+                    ),
+                    restaurant: state.cart?.restaurant || action.payload.restaurant
+                }
             };
 
         case REMOVE_CART_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                cartItems: state.cartItems.map((item) => item.id !== action.payload),
+                cartItems: state.cartItems?.filter((item) => item.id !== action.payload),
+                cart: {
+                    ...state.cart,
+                    items: state.cart?.items?.filter((item) => item.id !== action.payload),
+                    restaurant: state.cart?.restaurant
+                }
             };
+
 
         case FIND_CART_FAILURE:
         case UPDATE_CART_ITEM_FAILURE:
@@ -63,10 +83,11 @@ export const cartReducer = (state = initialState, action) => {
 
         case LOGOUT:
             localStorage.removeItem("jwt");
-            return {...state,
-                cartItems:[],
-                cart:null,
-                success:"Logout Success"
+            return {
+                ...state,
+                cartItems: [],
+                cart: null,
+                success: "Logout Success"
             };
 
         default:

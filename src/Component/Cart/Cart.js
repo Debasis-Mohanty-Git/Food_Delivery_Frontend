@@ -4,6 +4,8 @@ import CartItem from './CartItem'
 import AddressCard from './AddressCard'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../../State/Order/Action';
 
 
 export const style = {
@@ -21,7 +23,7 @@ export const style = {
 const initialValues = {
   streetAddress: "",
   state: "",
-  pincode: '',
+  pincode: "",
   city: ""
 }
 
@@ -31,20 +33,38 @@ const Cart = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpenAddressModal = () => setOpen(true);
-
+  const { cart, auth } = useSelector(store => store);
+  const dispatch = useDispatch();
   const createOrderUsingSelecteAdddress = () => {
 
   }
 
   const handleSubmit = (value) => {
-    console.log("Form value",value);
-  }
+    const data = {
+      order: {
+        restaurantId: cart.cart?.item[0]?.food?.restaurant?.id,
+        deliveryAddress: {
+          fullName: auth.user?.fullName,
+          streetAddress: value.streetAddress,
+          city: value.city,
+          state: value.state,
+          postalCode: value.pincode,
+          country: "India"
+        }
+      },
+      jwt: localStorage.getItem("jwt")
+    };
+
+    dispatch(createOrder(data));
+
+    console.log("Address Form value", value);
+  };
 
   return (
     <>
       <main className='lg:flex justify-between'>
         <section className='lg:w-[30%] space-y-3 lg:min-h-screen pt-8'>
-          {items.map((item) => <CartItem />)}
+          {cart.cart?.item.map((item) => <CartItem item={item} />)}
           <Divider />
 
           <div className='billdetails px-5 text-sm'>
@@ -53,17 +73,17 @@ const Cart = () => {
             <div className='space-y-3'>
               <div className='flex justify-between text-gray-400'>
                 <p>Item Total</p>
-                <p>Price</p>
+                <p>₹ {cart.cart?.total}</p>
               </div>
 
               <div className='flex justify-between text-gray-400'>
                 <p>Deliver Fee</p>
-                <p>Price</p>
+                <p>₹ 9</p>
               </div>
 
               <div className='flex justify-between text-gray-400'>
                 <p>GST & Restaurant Charges</p>
-                <p>Price</p>
+                <p>₹ 29</p>
               </div>
 
               <Divider />
@@ -71,7 +91,7 @@ const Cart = () => {
 
             <div className='flex justify-between text-gray-400'>
               <p>Total Price</p>
-              <p>Price</p>
+              <p>₹ {cart.cart?.total + 9 + 29}</p>
             </div>
           </div>
         </section>
@@ -154,7 +174,7 @@ const Cart = () => {
                   padding: '15px',
                 }}
               >
-                
+
                 <Field
                   as={TextField}
                   name="streetAddress"
@@ -163,7 +183,7 @@ const Cart = () => {
                   variant="outlined"
                 />
 
-                
+
                 <Field
                   as={TextField}
                   name="state"
@@ -172,7 +192,7 @@ const Cart = () => {
                   variant="outlined"
                 />
 
-                
+
                 <div style={{ display: 'flex', gap: '16px' }}>
                   <Field
                     as={TextField}
@@ -190,7 +210,7 @@ const Cart = () => {
                   />
                 </div>
 
-               
+
                 <div style={{ textAlign: 'center', marginTop: '10px' }}>
                   <button
                     type="submit"

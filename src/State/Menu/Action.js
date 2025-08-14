@@ -31,7 +31,7 @@ export const grtMenuItemByRestaurantId=(reqData)=>async(dispatch)=>{
             },  
     });
         dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS,payload:data})
-        console.log("get menu item  by restaurant id",data)
+        console.log(" menu item  by restaurant id",data)
     } catch (error) {
         dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE, payload: error });
         console.log("Error",error)

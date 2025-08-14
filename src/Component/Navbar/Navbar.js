@@ -10,7 +10,7 @@ import { logoutUser } from '../../State/Authentication/Action';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { auth } = useSelector(store => store);
+    const { auth,cart } = useSelector(store => store);
     const dispatch=useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -81,8 +81,8 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    <IconButton>
-                        <Badge color='primary' badgeContent={2}>
+                    <IconButton onClick={()=>navigate("/cart")}>
+                        <Badge color='primary' badgeContent={cart.cart?.item.length}>
                             <ShoppingCartIcon sx={{ fontSize: "1.5rem" }} />
                         </Badge>
                     </IconButton>
