@@ -60,8 +60,6 @@ const RestaurantDetails = () => {
 
     <div className="px-5 lg:px-20">
       <section>
-        <h3 className="text-gray-400 py-1 mt-10 text-left">Home/Country/indian Restaurant Name/3</h3>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-4">
           <div className="col-span-1 lg:col-span-2">
             <img
