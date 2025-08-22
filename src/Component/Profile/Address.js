@@ -9,7 +9,7 @@ const Address = () => {
 
   return (
     <div className="w-full max-w-md mx-auto mt-10 ml-4 space-y-4">
-      {order.orders.map((ord) => (
+      {order.orders?.map((ord) => (
         <Card
           key={ord.id}
           className="w-full shadow-lg rounded-2xl border border-gray-200"
