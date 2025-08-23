@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
 const dispatch=useDispatch();
 const navigate=useNavigate();
-
+const { user } = useSelector(store => store.auth);
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate("/")
@@ -17,8 +17,8 @@ const navigate=useNavigate();
 
       <div className='flex flex-col justify-center items-center p-8 text-center'>
         <AccountCircleIcon sx={{ fontSize: '9rem', color: '#1976d2' }} />
-        <h1 className='py-4 text-3xl font-bold'>Debasis Mohanty</h1>
-        <p className='text-gray-600 text-base mb-6'>Email: mohantydebasis@gmail.com</p>
+        <h1 className='py-4 text-3xl font-bold'>{user?.name}</h1>
+        <p className='text-gray-600 text-base mb-6'>Email: {user?.email}</p>
         <Button
           onClick={handleLogout}
           variant='contained'
