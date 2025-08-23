@@ -17,7 +17,7 @@ const { user } = useSelector(store => store.auth);
 
       <div className='flex flex-col justify-center items-center p-8 text-center'>
         <AccountCircleIcon sx={{ fontSize: '9rem', color: '#1976d2' }} />
-        <h1 className='py-4 text-3xl font-bold'>{user?.fullName}</h1>
+        <h1 className='py-4 text-3xl font-bold'>{user?.name}</h1>
         <p className='text-gray-600 text-base mb-6'>Email: {user?.email}</p>
         <Button
           onClick={handleLogout}
