@@ -5,10 +5,12 @@ import { Category } from '@mui/icons-material';
 import { categorizeIngredients } from '../../Ingredients.js/categorizedIngredients';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../State/Cart/Action';
+import { useNavigate } from 'react-router-dom';
 
 const MenuCart = ({ item }) => {
     const [selectedIngredients, setSelectedIngredients] = useState([]);
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleChekhBoxChange = (itemName) => {
         console.log("value", itemName);
         if (selectedIngredients.includes(itemName)) {
@@ -18,6 +20,9 @@ const MenuCart = ({ item }) => {
             setSelectedIngredients([...selectedIngredients, itemName]);
         }
     }
+    const handleGoToCart = () => {
+        navigate("/cart");
+    };
 
     const handleAddItemToCart = (e) => {
         e.preventDefault();
@@ -32,7 +37,7 @@ const MenuCart = ({ item }) => {
         dispatch(addItemToCart(reqData));
         console.log("req data", reqData)
     };
-    
+
 
     return (
         <div>
@@ -77,7 +82,8 @@ const MenuCart = ({ item }) => {
                             }
                         </div>
                         <div className='pt-4'>
-                            <Button type='submit' variant='contained' disabled={false}>{true ? "Add to Cart" : "Out of Stock"}</Button>
+                            <Button onClick={handleGoToCart}
+                            type='submit' variant='contained' disabled={false}>{true ? "Add to Cart" : "Out of Stock"}</Button>
                         </div>
                     </form>
                 </AccordionDetails>

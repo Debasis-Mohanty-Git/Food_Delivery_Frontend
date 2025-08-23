@@ -8,23 +8,24 @@ import Favorates from './Favorates'
 import Address from './Address'
 
 const Profile = () => {
-    const [openSideBar,setOpenSideBar]=useState(false)
+  const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <div className='lg:flex justify-between'>
-        <div className='sticky h-[80vh] lg:w-[20%]'>
-            <ProfileNavigation open={openSideBar}/>
-        </div>
+      <div className="sticky top-16">
+        <ProfileNavigation open={openSideBar} />
+      </div>
 
-        <div className='lg:w-[80%]'>
-            <Routes>
-              <Route path="/" element={<UserProfile />}></Route>
-              <Route path="/orders" element={<Orders />}></Route>
-              <Route path="/address" element={<Address />}></Route>
-              <Route path="/favorites" element={<Favorates />}></Route>
-              <Route path="/event" element={<Event />}></Route>
-            </Routes>
-        </div>
-      
+
+      <div className='lg:w-[80%]'>
+        <Routes>
+          <Route path="/" element={<UserProfile />}></Route>
+          <Route path="/orders" element={<Orders />}></Route>
+          <Route path="/address" element={<Address />}></Route>
+          <Route path="/favorites" element={<Favorates />}></Route>
+          <Route path="/event" element={<Event />}></Route>
+        </Routes>
+      </div>
+
     </div>
   )
 }

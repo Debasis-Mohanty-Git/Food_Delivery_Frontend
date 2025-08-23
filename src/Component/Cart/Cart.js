@@ -104,17 +104,8 @@ const Cart = () => {
             </h1>
 
             <div className='flex gap-5 flex-wrap justify-center'>
-              {order.orders?.map((item, index) => (
-                <AddressCard
-                  key={index}
-                  handleSelectAddress={createOrderUsingSelecteAdddress}
-                  item={item}
-                  showButton={true}
-                />
-              ))}
 
-              
-              <Card className='flex flex-col gap-5 w-64 p-6 bg-[#1e1e1e] text-gray-400 shadow-xl rounded-2xl'>
+               <Card className='flex flex-col gap-5 w-64 p-6 bg-[#1e1e1e] text-gray-400 shadow-xl rounded-2xl'>
                 <div className='flex items-center gap-3'>
                   <div className='p-2 rounded-full bg-gray-700'>
                     <AddLocationAltIcon className='text-white' />
@@ -149,6 +140,14 @@ const Cart = () => {
                 </Button>
               </Card>
 
+              {order.orders?.map((item, index) => (
+                <AddressCard
+                  key={index}
+                  handleSelectAddress={createOrderUsingSelecteAdddress}
+                  item={item}
+                  showButton={true}
+                />
+              ))}
 
             </div>
           </div>

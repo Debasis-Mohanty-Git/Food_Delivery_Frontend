@@ -102,7 +102,7 @@ const RestaurantDetails = () => {
 
             <div className='flex items-center text-gray-500 text-base'>
               <CalendarMonthIcon className='text-blue-500' />
-              <span className='ml-2'>{restaurant.restaurant?.opeingHours}</span>
+              <span className='ml-2'>{restaurant.restaurant?.openingHours}</span>
             </div>
           </section>
         </div>
