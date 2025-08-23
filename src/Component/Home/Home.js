@@ -9,7 +9,7 @@ import { findCart } from '../../State/Cart/Action'
 
 const Home = () => {
   const dispatch = useDispatch();
-  const jwt = localStorage.getItem("jwt"); 
+  const jwt = localStorage.getItem("jwt");
   const { restaurant } = useSelector(store => store);
   const navigate = useNavigate();
 
@@ -22,19 +22,24 @@ const Home = () => {
 
   return (
     <div className='pb-10'>
-      
-      <section className='banner -z-50 relative flex flex-col justify-center items-center'>
-        <div className='w-[50vw] z-10 text-center'>
-          <p className='text-2xl lg:text-6xl font-bold z-10 py-5'>FoodZone Express</p>
-          <p className='z-10 text-gray-300 text-xl lg:text-4xl'>
-            Delicious meals, delivered hot & fast to your doorstep 🍽️
+
+      <section className="banner relative flex flex-col justify-center items-center h-[90vh] px-4 text-center overflow-hidden">
+        {/* Background overlay */}
+        <div className="cover absolute inset-0 bg-black/50 pointer-events-none"></div>
+
+        <div className="z-10 w-full max-w-md md:max-w-2xl lg:max-w-4xl">
+          <p className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold py-5">
+            Tummy Time
+          </p>
+          <p className="text-gray-300 text-lg sm:text-xl md:text-2xl lg:text-4xl leading-relaxed">
+            Your meals, your moments — delivered fresh, fast & right on time⏰ 
           </p>
         </div>
-        <div className='cover absolute top-0 left-0 right-0'></div>
-        <div className='fadout'></div>
+
+        
+        <div className="fadout absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/70 to-transparent"></div>
       </section>
 
-      
       {jwt && (
         <>
           <section className='p-10 lg:py-10 lg:px-20'>
