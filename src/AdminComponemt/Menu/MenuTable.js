@@ -13,17 +13,15 @@ const MenuTable = () => {
     const { restaurant, ingredients, menuItem } = useSelector(store => store);
 
     useEffect(() => {
-        if (restaurant?.userRestaurant?.id) {
-            dispatch(grtMenuItemByRestaurantId({
-                restaurantId: restaurant.userRestaurant.id,
-                jwt: localStorage.getItem("jwt"),
-                vegetarian: false,
-                seasonal: false,
-                nonveg: false,
-                foodCategory: ""
-            }));
-        }
-    }, [restaurant?.userRestaurant?.id, dispatch]);
+        dispatch(grtMenuItemByRestaurantId({
+            restaurantId: restaurant.userRestaurant.id,
+            jwt: localStorage.getItem("jwt"),
+            vegetarian: false,
+            seasonal: false,
+            nonveg: false,
+            foodCategory: ""
+        }));
+    }, [jwt]);
 
     const handleDeleteFood = (foodId) => {
         dispatch(deleteFood({
@@ -69,7 +67,7 @@ const MenuTable = () => {
                                     <TableCell align="left">₹ {item.price}</TableCell>
                                     <TableCell align="left">{item.available ? "in_stoke" : "out_of_stoke"}</TableCell>
                                     <TableCell align="left">
-                                        <IconButton color='error' onClick={() => handleDeleteFood(item.id)}>
+                                        <IconButton color='error' onClick={()=>handleDeleteFood(item.id)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
