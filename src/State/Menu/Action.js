@@ -20,45 +20,24 @@ export const createMenuItem=({menu,jwt})=>async(dispatch)=>{
 
 }
 
-// export const grtMenuItemByRestaurantId=(reqData)=>async(dispatch)=>{
+export const grtMenuItemByRestaurantId=(reqData)=>async(dispatch)=>{
 
-//     dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST});
-//     try {
-//         const {data}=await api.get(`api/food/restaurant/${reqData.restaurantId}?vegetarian=${reqData.vegetarian}
-//             &nonveg=${reqData.nonveg}&seasonal=${reqData.seasonal}&food_category=${reqData.foodCategory}`,{
-//             headers:{
-//                 Authorization:`Bearer ${reqData.jwt}`,
-//             },  
-//     });
-//         dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS,payload:data})
-//         console.log(" menu item  by restaurant id",data)
-//     } catch (error) {
-//         dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE, payload: error });
-//         console.log("Error",error)
-//     }
-
-// }   
-
-export const grtMenuItemByRestaurantId = (reqData) => async (dispatch) => {
-    dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST });
-
+    dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST});
     try {
-        const { data } = await api.get(
-            `api/food/restaurant/${reqData.restaurantId}?vegetarian=${reqData.vegetarian}&nonveg=${reqData.nonveg}&seasonal=${reqData.seasonal}&food_category=${reqData.foodCategory}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${reqData.jwt}`,
-                },
-            }
-        );
-
-        dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS, payload: data });
-        console.log("Menu item by restaurant ID", data);
+        const {data}=await api.get(`api/food/restaurant/${reqData.restaurantId}?vegetarian=${reqData.vegetarian}
+            &nonveg=${reqData.nonveg}&seasonal=${reqData.seasonal}&food_category=${reqData.foodCategory}`,{
+            headers:{
+                Authorization:`Bearer ${reqData.jwt}`,
+            },  
+    });
+        dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS,payload:data})
+        console.log(" menu item  by restaurant id",data)
     } catch (error) {
-        dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE, payload: error });
-        console.log("Error", error);
+        dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE, payload: error });
+        console.log("Error",error)
     }
-};
+
+}   
 
 export const searchMenuItem=({jwt,keyword})=>async(dispatch)=>{
 
