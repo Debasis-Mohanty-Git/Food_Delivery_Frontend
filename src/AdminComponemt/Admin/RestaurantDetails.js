@@ -58,7 +58,7 @@ const RestaurantDetails = () => {
 
               <div className="flex">
                 <p className="w-48 font-medium">Opening Hours</p>
-                <p className="text-gray-400">- Mon-Sun:9.00Am - 12.00pm{restaurant.userRestaurant?.openingHours}</p>
+                <p className="text-gray-400">- {restaurant.userRestaurant?.openingHours}</p>
               </div>
 
               <div className="flex">

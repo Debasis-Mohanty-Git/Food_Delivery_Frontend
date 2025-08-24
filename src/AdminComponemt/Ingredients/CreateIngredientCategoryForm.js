@@ -34,7 +34,7 @@ const CreateIngredientCategoryForm = () => {
                         fullWidth
                         id='name'
                         name='name'
-                        label="Food Category"
+                        label="Ingredient Category"
                         variant='outlined'
                         onChange={handleInputChange}
                         value={formData.name}

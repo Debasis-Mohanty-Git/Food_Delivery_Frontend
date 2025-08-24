@@ -6,7 +6,7 @@ export const createMenuItem=({menu,jwt})=>async(dispatch)=>{
 
     dispatch({type:CREATE_MENU_ITEM_REQUEST});
     try {
-        const {data}=await api.post(`/api/admin/food`,menu,{
+        const {data}=await api.post(`/api/admin/food`,menu,{    
             headers:{
                 Authorization:`Bearer ${jwt}`,
             },  

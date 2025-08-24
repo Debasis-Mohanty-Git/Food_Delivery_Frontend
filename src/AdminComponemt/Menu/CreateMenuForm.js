@@ -7,6 +7,7 @@ import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
 import { useDispatch, useSelector } from 'react-redux';
 import { createMenuItem } from '../../State/Menu/Action';
 import { getIngredientsOfRestaurant } from '../../State/Ingredients/Action';
+import { useParams } from 'react-router-dom';
 
 const initialValues = {
     name: "",
@@ -31,14 +32,15 @@ const CreateMenuForm = () => {
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            values.restaurantId = 1
+            values.restaurantId = restaurant.userRestaurant.id;
             dispatch(createMenuItem({
                 menu: values,
                 jwt
-            }))
+            }));
             console.log("data:", values);
         }
     });
+
 
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
