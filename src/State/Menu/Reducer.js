@@ -32,11 +32,15 @@ export const menuItemReducer = (state = initialState, action) => {
             };
 
         case GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                menuItems: action.payload,
-            };
+    return {
+        ...state,
+        loading: false,
+        menuItems: {
+            ...state.menuItems,
+            [action.payload.restaurantId]: action.payload.items, // Assuming API response has both
+        },
+    };
+
 
         case DELETE_MENU_ITEM_SUCCESS:
             return {
