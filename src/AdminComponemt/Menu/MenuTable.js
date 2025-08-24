@@ -21,7 +21,7 @@ const MenuTable = () => {
             nonveg: false,
             foodCategory: ""
         }));
-    }, [jwt]);
+    }, []);
 
     const handleDeleteFood = (foodId) => {
         dispatch(deleteFood({
